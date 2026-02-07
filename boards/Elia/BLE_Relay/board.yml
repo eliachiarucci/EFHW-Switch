@@ -1,0 +1,5 @@
+board:
+  name: BLE_Relay
+  vendor: Elia
+  socs:
+    - name: nrf52832

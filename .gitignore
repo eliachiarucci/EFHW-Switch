@@ -1,0 +1,14 @@
+# Build artifacts
+build*/
+CMakeCache.txt
+CMakeFiles/
+
+# Keys and secrets
+*.pem
+keygen
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/

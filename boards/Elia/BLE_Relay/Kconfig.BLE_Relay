@@ -1,0 +1,2 @@
+config BOARD_BLE_RELAY
+	select SOC_NRF52832_QFAA

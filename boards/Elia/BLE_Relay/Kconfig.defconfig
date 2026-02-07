@@ -1,0 +1,13 @@
+# nRF52 DK nRF52810 board configuration
+
+# Copyright (c) 2018 Nordic Semiconductor ASA
+# SPDX-License-Identifier: Apache-2.0
+if BOARD_BLE_RELAY
+
+
+# BT_CTLR depends on BT. When BT is enabled we should default to also
+# enabling the controller.
+config BT_CTLR
+	default y if BT
+	
+endif # BOARD_BLE_RELAY

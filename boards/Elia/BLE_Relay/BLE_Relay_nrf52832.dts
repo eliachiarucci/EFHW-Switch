@@ -1,0 +1,80 @@
+/dts-v1/;
+#include <nordic/nrf52832_qfaa.dtsi>
+#include "BLE_Relay-pinctrl.dtsi"
+
+/ {
+	model = "EFHW Switch board using nRF52832";
+	compatible = "Elia,custom-board-name";
+
+	chosen {
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+		zephyr,code-partition = &slot0_partition;
+	};
+
+	zephyr,user {
+		io-channels = <&adc 0>;
+	};
+};
+
+&adc {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+	channel@0 {
+		reg = <0>;
+		zephyr,gain = "ADC_GAIN_1_6";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 20)>;
+		zephyr,input-positive = <NRF_SAADC_VDD>;
+		zephyr,resolution = <12>;
+		zephyr,oversampling = <8>;
+	};
+};
+
+/* &uicr {
+	gpio-as-nreset;
+}; */
+
+&gpiote {
+	status = "okay";
+};
+
+&uicr { nfct-pins-as-gpios; };
+	
+&gpio0 {
+	status = "okay";
+};
+
+&reg {
+	regulator-initial-mode = <NRF5X_REG_MODE_DCDC>;
+};
+
+&flash0 {
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		boot_partition: partition@0 {
+			label = "mcuboot";
+			reg = <0x00000000 0xc000>;
+		};
+		slot0_partition: partition@c000 {
+			label = "image-0";
+			reg = <0x0000C000 0x37000>;
+		};
+		slot1_partition: partition@43000 {
+			label = "image-1";
+			reg = <0x00043000 0x37000>;
+		};
+		storage_partition: partition@7a000 {
+			label = "storage";
+			reg = <0x0007a000 0x2000>;
+		};
+		custom_storage: partition@7c000 {
+			label = "custom_storage";
+			reg = <0x0007c000 0x4000>;
+		};
+	};
+};
