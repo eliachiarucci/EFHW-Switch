@@ -12,3 +12,7 @@ keygen
 
 # IDE
 .vscode/
+
+*.pem
+
+tools/testbench/results
