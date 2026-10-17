@@ -46,6 +46,7 @@ void relay_timer_handler(struct k_timer *timer_id)
 void relay_on()
 {
 	LOG_INF("TURNING ON");
+	gpio_pin_set(gpio_dev, GPIO_RELAY_RESET, 0); // never drive both coils at once
 	gpio_pin_set(gpio_dev, GPIO_RELAY_SET, 1);
 	k_timer_start(&relay_timer, K_MSEC(10), K_NO_WAIT); // Schedule to turn off in 10ms
 }
@@ -53,6 +54,7 @@ void relay_on()
 void relay_off()
 {
 	LOG_INF("TURNING OFF");
+	gpio_pin_set(gpio_dev, GPIO_RELAY_SET, 0); // never drive both coils at once
 	gpio_pin_set(gpio_dev, GPIO_RELAY_RESET, 1);
 	k_timer_start(&relay_timer, K_MSEC(10), K_NO_WAIT); // Schedule to turn off in 10ms
 }
