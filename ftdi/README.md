@@ -5,8 +5,7 @@
 Connect SWCLK to ADBUS 0.
 Connect SWDIO to ADBUS 2 (on some boards, there might be a header to select a series resistor on this line).
 Connect GND to GND.
-Connect VDD to Vref (optional).
-The board needs to be self-powered, providing 3.3V to the programming pins won't work.
+Connect VDD to 3V3.
 
 
 ## Starting the debug server

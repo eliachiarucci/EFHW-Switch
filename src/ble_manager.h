@@ -71,7 +71,7 @@ static ssize_t read_firmware_revision(struct bt_conn *conn,
                                       const struct bt_gatt_attr *attr,
                                       void *buf, uint16_t len,
                                       uint16_t offset) {
-  uint8_t firmware_revision[] = {0, 1, 8};
+  uint8_t firmware_revision[] = {0, 1, 9};
   return bt_gatt_attr_read(conn, attr, buf, len, offset, &firmware_revision,
                            sizeof(firmware_revision));
 }

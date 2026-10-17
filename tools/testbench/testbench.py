@@ -62,7 +62,7 @@ CHR_CUSTOM_NAME = SVC_CUSTOM_NAME
 
 # Keep in sync with the firmware
 EXPECTED_MODEL = "BR1"
-EXPECTED_FW = bytes([0, 1, 8])  # read_firmware_revision()
+EXPECTED_FW = bytes([0, 1, 9])  # read_firmware_revision()
 # init_hw_revision() bails out on -ENOENT before writing DEVICE_HW_REVISION,
 # so NVS never gets a value and every board reports 0
 EXPECTED_HW = 0
