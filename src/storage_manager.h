@@ -145,7 +145,8 @@ int init_hw_revision(void)
     uint32_t current_rev;
     int rc = read_hw_revision(&current_rev);
 
-    if (rc < 0)
+    // -ENOENT (never written, current_rev = 0) is the case that must go on and write it
+    if (rc < 0 && rc != -ENOENT)
     {
         return rc;
     }

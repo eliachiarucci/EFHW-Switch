@@ -21,40 +21,8 @@ float get_battery_voltage()
 	return voltage_value;
 }
 
-struct k_timer battery_voltage_sampling_timer;
-
-#define samples_array_size 3
-
-float battery_voltage_samples[samples_array_size];
-
-void push_new_voltage_sample(float newVal)
-{
-	// Shift elements to the right
-	for (int i = 3 - 1; i > 0; i--)
-	{
-		battery_voltage_samples[i] = battery_voltage_samples[i - 1];
-	}
-	// Add new value at the front
-	battery_voltage_samples[0] = newVal;
-}
-
-int battery_voltage_sampling_handler()
-{
-	float battery_voltage = get_battery_voltage();
-	push_new_voltage_sample(battery_voltage);
-	float array_sum = 0;
-	for (int i = 0; i < 3; i++)
-	{
-		if (battery_voltage_samples[i] == 0)
-			return -1;
-		array_sum += battery_voltage_samples[i];
-	}
-}
-
 int adc_start()
 {
-	k_timer_init(&battery_voltage_sampling_timer, battery_voltage_sampling_handler, NULL);
-
 	int err;
 	if (!adc_is_ready_dt(&adc_channel))
 	{
@@ -79,8 +47,6 @@ int adc_start()
 		LOG_ERR("Could not initalize sequnce");
 		return 0;
 	}
-
-	k_timer_start(&battery_voltage_sampling_timer, K_MSEC(10000), K_MSEC(10000));
 }
 
 // Read handler for the battery level characteristic
