@@ -5,7 +5,8 @@
 Connect SWCLK to ADBUS 0.
 Connect SWDIO to ADBUS 2 (on some boards, there might be a header to select a series resistor on this line).
 Connect GND to GND.
-Connect VDD to Vref.
+Connect VDD to Vref (optional).
+The board needs to be self-powered, providing 3.3V to the programming pins won't work.
 
 
 ## Starting the debug server
@@ -32,7 +33,7 @@ telnet localhost 9090
 
 ```bash
 openocd -f ftdi/ft2232hl-swd.cfg -f target/nrf52.cfg \
-  -c "program build_1/zephyr/zephyr.hex verify reset exit"
+  -c "program build/merged.hex verify reset exit"
 ```
 
 (build folder might be different)
